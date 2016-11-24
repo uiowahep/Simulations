@@ -1,0 +1,17 @@
+*~
+*.db
+*.root
+*.sqp
+*.swo
+*.swn
+*.swm
+*.pyc
+*.json
+*.log
+*.DS_Store
+*.aux
+*.fdb_latexmk
+*.fls
+*.gz
+*.html
+crab_projects/
