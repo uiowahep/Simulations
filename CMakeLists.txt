@@ -84,6 +84,3 @@ foreach (MAIN_FILE ${MAIN_FILES})
 	add_executable(${EXECUTABLE_NAME} ${MAIN_FILE})
 	target_link_libraries (${EXECUTABLE_NAME} ${EXTRA_LIBS} hgc)
 endforeach(MAIN_FILE)
-
-file (COPY ${PROJECT_SOURCE_DIR}/hgc/config DESTINATION ${PROJECT_BINARY_DIR}/hgc)
-file (COPY ${PROJECT_SOURCE_DIR}/scripts DESTINATION ${PROJECT_BINARY_DIR})
