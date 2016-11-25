@@ -16,3 +16,4 @@
 *.html
 crab_projects/
 bin/
+*submissions/
