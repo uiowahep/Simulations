@@ -7,6 +7,7 @@ cmsswdir = "/afs/cern.ch/work/v/vkhriste/Projects/HiggsAnalysis/CMSSW_8_0_20/src
 dirToLaunchFrom = "/Users/vk/software/simulations/build-2/submissions"
 executable = "/Users/vk/software/simulations/Simulations/bin/simulate_hgcal"
 geomConfigFile = "/Users/vk/software/simulations/Simulations/hgc/config/geomConfigFile.geom"
+outputLocation = "/afs/cern.ch/work/v/vkhriste/Projects/data/Simulations/hgcal"
 #dirToLaunchFrom = "/afs/cern.ch/work/v/vkhriste/Projects/Simulations/bin/submissions"
 
 # build up a path for this submission
@@ -17,6 +18,11 @@ currentTime = datetime.datetime.now().strftime("%Y%m%d_%H%M")
 dirToLaunchFrom = os.path.join(dirToLaunchFrom, currentTime)
 if not os.path.exists(dirToLaunchFrom):
     os.system("mkdir %s" % dirToLaunchFrom)
+
+# build up a path for output files
+outputLocation = os.path.join(outputLocation, currentTime)
+if not os.path.exists(outputLocation):
+    os.system("mkdir %s" % outputLocation)
 
 # place a description into that folder
 descFile = open(os.path.join(dirToLaunchFrom, "description.desc"), "w")
@@ -41,6 +47,7 @@ def main():
         for ievents in range(nEvents/eventsPerJob):
             seed = random.randint(0, int(time.time()))
             output = "hgcaldata__%d__%d.root" % (energy, seed)
+            output = os.path.join(outputLocation, output)
             cmd = ("{executable} --isInteractive=0 --energy={energy} --particle=e- --numEvents={numEvents} --seed={seed} --verbose=0 --geomConfigFile={geomConfigFile} --output={output}").format(executable=executable, energy=energy, 
                 numEvents=eventsPerJob, seed=seed, geomConfigFile=geomConfigFile, 
                 output=output)
