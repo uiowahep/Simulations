@@ -4,9 +4,9 @@ import os, sys
 
 # define some common paths
 cmsswdir = "/afs/cern.ch/work/v/vkhriste/Projects/HiggsAnalysis/CMSSW_8_0_20/src"
-dirToLaunchFrom = "/Users/vk/software/simulations/build-2/submissions"
-executable = "/Users/vk/software/simulations/Simulations/bin/simulate_hgcal"
-geomConfigFile = "/Users/vk/software/simulations/Simulations/hgc/config/geomConfigFile.geom"
+dirToLaunchFrom = "/afs/cern.ch/work/v/vkhriste/Projects/Simulations/bin/submissions"
+executable = "/afs/cern.ch/work/v/vkhriste/Projects/Simulations/bin/simulate_hgcal"
+geomConfigFile = "/afs/cern.ch/work/v/vkhriste/Projects/Simulations/hgc/config/config__SiW.geom"
 outputLocation = "/afs/cern.ch/work/v/vkhriste/Projects/data/Simulations/hgcal"
 #dirToLaunchFrom = "/afs/cern.ch/work/v/vkhriste/Projects/Simulations/bin/submissions"
 
@@ -51,7 +51,7 @@ def main():
             cmd = ("{executable} --isInteractive=0 --energy={energy} --particle=e- --numEvents={numEvents} --seed={seed} --verbose=0 --geomConfigFile={geomConfigFile} --output={output}").format(executable=executable, energy=energy, 
                 numEvents=eventsPerJob, seed=seed, geomConfigFile=geomConfigFile, 
                 output=output)
-            launcherName = "laucnher__%d__%d.sh" % (energy, seed)
+            launcherName = "launcher__%d__%d.sh" % (energy, seed)
             launcher = open(os.path.join(dirToLaunchFrom, launcherName), "w")
 
             # get to cmssw and issue cmsenv
@@ -65,7 +65,7 @@ def main():
             joblist.append("bsub -q {queue} -o {logfile} -e {errorfile} {launcherscript}".format(queue="1nh" if energy<16 else "8nh", logfile=os.path.join(dirToLaunchFrom, "log__%d.log" % (
                 seed)), errorfile=os.path.join(dirToLaunchFrom, "error__%d.log" % (
                 seed)), launcherscript=os.path.join(dirToLaunchFrom, 
-                    "launcher__%d__%d.sh" % (energy, seed))))
+                    launcherName)))
 
     # writting all the launchers into the submitter
     submitter = open(os.path.join(dirToLaunchFrom, "submitter.sh"), "w")
