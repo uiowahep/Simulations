@@ -161,11 +161,11 @@ int main(int argc, char** argv)
         hEnergies[energiesConsidered[ie]]->Fit("myGaus", "R");
         TF1 *fit = hEnergies[energiesConsidered[ie]]->GetFunction("myGaus");
         //  
-//        gEnergyResolution->SetPoint(ie, energiesConsidered[ie], 
-//            fit->GetParameter(2)/fit->GetParameter(1));
-        gEnergyResolution->SetPoint(ie, energiesConsidered[ie],
-            hEnergies[energiesConsidered[ie]]->GetRMS()/
-            hEnergies[energiesConsidered[ie]]->GetMean());
+        gEnergyResolution->SetPoint(ie, energiesConsidered[ie], 
+            fit->GetParameter(2)/fit->GetParameter(1));
+//        gEnergyResolution->SetPoint(ie, energiesConsidered[ie],
+//            hEnergies[energiesConsidered[ie]]->GetRMS()/
+//            hEnergies[energiesConsidered[ie]]->GetMean());
         gEnergyResolution->SetMarkerStyle(22);
     }
 
